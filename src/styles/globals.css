@@ -1,0 +1,180 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-heading: var(--font-sans);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+}
+
+:root {
+  --background: oklch(0.96 0.018 81);
+  --foreground: oklch(0.2 0.025 57);
+  --card: oklch(0.985 0.018 90);
+  --card-foreground: oklch(0.2 0.025 57);
+  --popover: oklch(0.985 0.018 90);
+  --popover-foreground: oklch(0.2 0.025 57);
+  --primary: oklch(0.2 0.025 57);
+  --primary-foreground: oklch(0.985 0.018 90);
+  --secondary: oklch(0.92 0.023 84);
+  --secondary-foreground: oklch(0.2 0.025 57);
+  --muted: oklch(0.93 0.019 85);
+  --muted-foreground: oklch(0.48 0.03 62);
+  --accent: oklch(0.82 0.12 83);
+  --accent-foreground: oklch(0.2 0.025 57);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.82 0.03 78);
+  --input: oklch(0.82 0.03 78);
+  --ring: oklch(0.58 0.08 73);
+  --radius: 0.5rem;
+  --page-background: #e8dcc4;
+  --receipt-paper: #fff8e7;
+  --receipt-soft: #f6ecd3;
+  --receipt-ink: #2f261b;
+  --receipt-muted: #81735f;
+  --receipt-rule: #d6c5a5;
+  --receipt-highlight: #f2c94c;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    min-height: 100dvh;
+    margin: 0;
+    background:
+      radial-gradient(circle at top left, rgb(244 198 96 / 0.34), transparent 32rem),
+      linear-gradient(135deg, #efe2c8 0%, #d6eadf 48%, #e6d8bf 100%);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  button,
+  input,
+  textarea {
+    font: inherit;
+  }
+}
+
+@layer components {
+  .receipt-paper {
+    position: relative;
+    background-color: var(--receipt-paper);
+    background-image:
+      linear-gradient(90deg, rgb(47 38 27 / 0.035) 1px, transparent 1px),
+      linear-gradient(rgb(47 38 27 / 0.028) 1px, transparent 1px),
+      radial-gradient(circle at 18% 14%, rgb(255 255 255 / 0.7) 0 1px, transparent 1.5px),
+      radial-gradient(circle at 72% 35%, rgb(47 38 27 / 0.08) 0 0.7px, transparent 1.2px);
+    background-size: 18px 18px, 18px 18px, 22px 22px, 28px 28px;
+    color: var(--receipt-ink);
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% calc(100% - 12px),
+      96% 100%,
+      92% calc(100% - 12px),
+      88% 100%,
+      84% calc(100% - 12px),
+      80% 100%,
+      76% calc(100% - 12px),
+      72% 100%,
+      68% calc(100% - 12px),
+      64% 100%,
+      60% calc(100% - 12px),
+      56% 100%,
+      52% calc(100% - 12px),
+      48% 100%,
+      44% calc(100% - 12px),
+      40% 100%,
+      36% calc(100% - 12px),
+      32% 100%,
+      28% calc(100% - 12px),
+      24% 100%,
+      20% calc(100% - 12px),
+      16% 100%,
+      12% calc(100% - 12px),
+      8% 100%,
+      4% calc(100% - 12px),
+      0 100%
+    );
+  }
+
+  .receipt-rule {
+    height: 1px;
+    background-image: repeating-linear-gradient(
+      90deg,
+      var(--receipt-rule) 0 8px,
+      transparent 8px 14px
+    );
+  }
+
+  .animate-receipt-print {
+    animation: receipt-print 760ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    transform-origin: top center;
+  }
+}
+
+@keyframes receipt-print {
+  from {
+    opacity: 0;
+    transform: translateY(-18px) scaleY(0.82);
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
+}
