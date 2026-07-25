@@ -21,11 +21,13 @@ export default function Home() {
               <p className="font-mono text-[0.68rem] uppercase tracking-[0.28em] text-[var(--receipt-muted)]">
                 Restaurant Receipt
               </p>
+
               <h1 className="mt-2 text-4xl font-black leading-none tracking-normal">
                 PayShare v2
               </h1>
+
               <p className="mt-2 font-mono text-xs uppercase tracking-[0.18em] text-[var(--receipt-muted)]">
-                 Edition
+                Edition
               </p>
             </header>
 
@@ -42,8 +44,9 @@ export default function Home() {
 
             <section className="space-y-4">
               <div className="text-center font-mono text-[0.72rem] uppercase tracking-[0.22em] text-[var(--receipt-muted)]">
-                QR section
+                QR Section
               </div>
+
               <PrimaryButton onClick={() => setOpenQR(true)} />
             </section>
 
