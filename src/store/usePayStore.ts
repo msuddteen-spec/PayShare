@@ -1,6 +1,7 @@
 "use client";
 
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 type PayStore = {
   promptPay: string;
@@ -12,25 +13,37 @@ type PayStore = {
   setPeople: (value: number) => void;
 };
 
-export const usePayStore = create<PayStore>((set) => ({
-  promptPay: "",
+export const usePayStore = create<PayStore>()(
+  persist(
+    (set) => ({
+      promptPay: "",
 
-  amount: 0,
+      amount: 0,
 
-  people: 2,
+      people: 2,
 
-  setPromptPay: (promptPay) =>
-    set({
-      promptPay,
+      setPromptPay: (promptPay) =>
+        set({
+          promptPay,
+        }),
+
+      setAmount: (amount) =>
+        set({
+          amount,
+        }),
+
+      setPeople: (people) =>
+        set({
+          people,
+        }),
     }),
+    {
+      name: "payshare-storage",
 
-  setAmount: (amount) =>
-    set({
-      amount,
-    }),
-
-  setPeople: (people) =>
-    set({
-      people,
-    }),
-}));
+      // จำเฉพาะเบอร์ PromptPay
+      partialize: (state) => ({
+        promptPay: state.promptPay,
+      }),
+    }
+  )
+);
